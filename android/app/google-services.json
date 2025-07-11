@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "163615434265",
+    "project_id": "weathercellula",
+    "storage_bucket": "weathercellula.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:163615434265:android:2405823626b4c883b36c88",
+        "android_client_info": {
+          "package_name": "com.example.weather_app_cellula"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZY8vJn3uCgmxrShKmmEv3ouV0CEGBZf4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
