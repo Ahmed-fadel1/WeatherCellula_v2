@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:weather_app_cellula/core/bloc/cubits/login_cubit/login_cubit.dart';
-import 'package:weather_app_cellula/core/bloc/cubits/login_cubit/login_states.dart';
+import 'package:weather_app_cellula/features/auth/cubits/login_cubit/login_cubit.dart';
+import 'package:weather_app_cellula/features/auth/cubits/login_cubit/login_states.dart';
 import 'package:weather_app_cellula/features/auth/auth_service.dart';
-import 'package:weather_app_cellula/features/presentation/pages/main_weather_view.dart';
-import 'package:weather_app_cellula/features/presentation/pages/sign_up_view.dart';
-import 'package:weather_app_cellula/features/presentation/widgets/custom_button.dart';
+import 'package:weather_app_cellula/features/weather/presentation/main_weather_view.dart';
+import 'package:weather_app_cellula/features/login_SignIn/pages/sign_up_view.dart';
+import 'package:weather_app_cellula/features/login_SignIn/widgets/custom_button.dart';
 
 class LogInView extends StatefulWidget {
   const LogInView({super.key});
@@ -154,7 +154,7 @@ class _LogInViewState extends State<LogInView> {
                     if (state is LoginSuccessState) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
-                          content: const Text("WELCOME TO CELLULA!"),
+                          content: const Text("WELCOME In CELLULA!"),
                           backgroundColor: Colors.green,
                           behavior: SnackBarBehavior.floating,
                           shape: RoundedRectangleBorder(
@@ -174,7 +174,7 @@ class _LogInViewState extends State<LogInView> {
                     if (state is LoginErrorState) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
-                          content: const Text("LOGIN FAILED!"),
+                          content: Text(state.message),
                           backgroundColor: Colors.red,
                           behavior: SnackBarBehavior.floating,
                           shape: RoundedRectangleBorder(

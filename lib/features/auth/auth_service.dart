@@ -22,6 +22,7 @@ class AuthService {
       return true;
     } on Exception catch (e) {
       print(e);
+
       return false;
     }
   }

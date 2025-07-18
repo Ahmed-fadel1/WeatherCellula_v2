@@ -1,12 +1,14 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:weather_app_cellula/core/bloc/cubits/login_cubit/login_cubit.dart';
+import 'package:weather_app_cellula/features/auth/cubits/login_cubit/login_cubit.dart';
 import 'package:weather_app_cellula/core/constants/colors/colors.dart';
-import 'package:weather_app_cellula/features/presentation/pages/home_view.dart';
-import 'package:weather_app_cellula/features/presentation/pages/log_in_view.dart';
-import 'package:weather_app_cellula/features/presentation/pages/main_weather_view.dart';
-import 'package:weather_app_cellula/features/presentation/pages/sign_up_view.dart';
+import 'package:weather_app_cellula/features/login_SignIn/pages/home_view.dart';
+import 'package:weather_app_cellula/features/login_SignIn/pages/log_in_view.dart';
+import 'package:weather_app_cellula/features/weather/cubit/weather_cubit.dart';
+import 'package:weather_app_cellula/features/weather/data/weather_service.dart';
+import 'package:weather_app_cellula/features/weather/presentation/main_weather_view.dart';
+import 'package:weather_app_cellula/features/login_SignIn/pages/sign_up_view.dart';
 import 'package:weather_app_cellula/firebase_options.dart';
 
 void main() async {
@@ -20,8 +22,11 @@ class WeatherAppCellula extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => LoginCubit(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => LoginCubit()),
+        BlocProvider(create: (context) => WeatherCubit(WeatherService())),
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
@@ -83,7 +88,7 @@ class WeatherAppCellula extends StatelessWidget {
           '/login': (context) => LogInView(),
           '/main-weather-view': (context) => MainWeatherView(),
         },
-        initialRoute: "/home",
+        initialRoute: "/login",
       ),
     );
   }

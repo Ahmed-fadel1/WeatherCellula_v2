@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:weather_app_cellula/features/presentation/pages/log_in_view.dart';
-import 'package:weather_app_cellula/features/presentation/pages/sign_up_view.dart';
-import 'package:weather_app_cellula/features/presentation/widgets/curve_clipper.dart';
-import 'package:weather_app_cellula/features/presentation/widgets/custom_button.dart';
+import 'package:weather_app_cellula/features/login_SignIn/pages/log_in_view.dart';
+import 'package:weather_app_cellula/features/login_SignIn/pages/sign_up_view.dart';
+import 'package:weather_app_cellula/features/login_SignIn/widgets/curve_clipper.dart';
+import 'package:weather_app_cellula/features/login_SignIn/widgets/custom_button.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});

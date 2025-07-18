@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:weather_app_cellula/core/bloc/cubits/login_cubit/login_cubit.dart';
-import 'package:weather_app_cellula/core/bloc/cubits/login_cubit/login_states.dart';
+import 'package:weather_app_cellula/features/auth/cubits/login_cubit/login_cubit.dart';
+import 'package:weather_app_cellula/features/auth/cubits/login_cubit/login_states.dart';
 import 'package:weather_app_cellula/features/auth/auth_service.dart';
-import 'package:weather_app_cellula/features/presentation/pages/log_in_view.dart';
-import 'package:weather_app_cellula/features/presentation/widgets/Custom_Page_Indicator.dart';
-import 'package:weather_app_cellula/features/presentation/widgets/custom_button.dart';
+import 'package:weather_app_cellula/features/login_SignIn/pages/log_in_view.dart';
+import 'package:weather_app_cellula/features/login_SignIn/widgets/Custom_Page_Indicator.dart';
+import 'package:weather_app_cellula/features/login_SignIn/widgets/custom_button.dart';
 
 class SignUpView extends StatefulWidget {
   const SignUpView({super.key});

@@ -1,5 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:weather_app_cellula/core/bloc/cubits/login_cubit/login_states.dart';
+import 'package:weather_app_cellula/features/auth/cubits/login_cubit/login_states.dart';
 import 'package:weather_app_cellula/features/auth/auth_service.dart';
 
 class LoginCubit extends Cubit<LoginStates> {
@@ -12,10 +13,19 @@ class LoginCubit extends Cubit<LoginStates> {
       bool success = await authService.login(email, password);
       if (success) {
         emit(LoginSuccessState());
+      } else {
+        emit(LoginErrorState('Invalid email or password'));
+        await Future.delayed(const Duration(seconds: 1));
+        emit(LoginInitialState());
       }
+    } on FirebaseAuthException catch (e) {
+      emit(LoginErrorState(e.message ?? 'Something went wrong'));
+      await Future.delayed(const Duration(seconds: 1));
+      emit(LoginInitialState());
     } catch (e) {
-      print(e);
-      emit(LoginErrorState());
+      emit(LoginErrorState(e.toString()));
+      await Future.delayed(const Duration(seconds: 1));
+      emit(LoginInitialState());
     }
   }
 
@@ -27,8 +37,7 @@ class LoginCubit extends Cubit<LoginStates> {
         emit(SignUpSuccessState());
       }
     } catch (e) {
-      print(e);
-      emit(SignUpErrorState());
+      emit(SignUpErrorState(e.toString()));
     }
   }
 }
