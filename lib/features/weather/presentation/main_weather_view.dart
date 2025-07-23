@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:weather_app_cellula/core/constants/colors/colors.dart';
 import 'package:weather_app_cellula/features/login_SignIn/widgets/circle_info.dart';
 import 'package:weather_app_cellula/features/weather/cubit/weather_cubit.dart';
 import 'package:weather_app_cellula/features/weather/cubit/weather_states.dart';
+import 'package:weather_app_cellula/features/weather/data/ai_model.dart';
+import 'package:weather_app_cellula/features/weather/data/weather_to_double.dart';
 
 class MainWeatherView extends StatefulWidget {
   const MainWeatherView({super.key});
@@ -19,11 +22,44 @@ class _MainWeatherViewState extends State<MainWeatherView> {
   @override
   void initState() {
     super.initState();
+
     context.read<WeatherCubit>().fetchWeather("Cairo");
   }
 
   Future<void> fetchNewCityData(BuildContext context, String value) =>
       context.read<WeatherCubit>().fetchWeather(value);
+  String? predictionResult;
+  bool isLoading = false;
+  void sendFeaturesAndGetPrediction() async {
+    setState(() {
+      isLoading = true;
+    });
+
+    final state = context.read<WeatherCubit>().state;
+    if (state is! WeatherSuccess) {
+      setState(() {
+        isLoading = false;
+      });
+      return;
+    }
+
+    final todayWeather = state.weatherList[0];
+
+    List<double> features = [
+      todayWeather.temp,
+      todayWeather.maxTemp,
+      todayWeather.minTemp,
+      todayWeather.date.weekday % 7,
+      weatherConditionToDouble(todayWeather.weatherStateName),
+    ];
+
+    final result = await getPrediction(features);
+
+    setState(() {
+      predictionResult = result;
+      isLoading = false;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -270,6 +306,28 @@ class _MainWeatherViewState extends State<MainWeatherView> {
                               ),
                             ),
                           ),
+                          ElevatedButton(
+                            onPressed:
+                                isLoading ? null : sendFeaturesAndGetPrediction,
+                            child: Text(
+                              isLoading ? 'Loading...' : ' Predict Weather ',
+                              style: TextStyle(
+                                color: Color(primaryColor),
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                          if (predictionResult != null)
+                            Text(
+                              'Result: $predictionResult',
+                              style: const TextStyle(
+                                color: Colors.yellow,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                         ],
                       ),
                     );

@@ -88,7 +88,7 @@ class WeatherAppCellula extends StatelessWidget {
           '/login': (context) => LogInView(),
           '/main-weather-view': (context) => MainWeatherView(),
         },
-        initialRoute: "/login",
+        initialRoute: MainWeatherView.routeName,
       ),
     );
   }
